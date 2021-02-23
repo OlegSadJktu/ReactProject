@@ -1,58 +1,73 @@
-import React, { useState } from "react";
-import {Button, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
 
+const useReversedName = () => {
+  const [text, setText] = useState("");
+  useEffect(() => console.log(text));
+  return [text, setText];
+};
+
 const MyProfile = ({ navigation, route }, props) => {
-  const [myText, setText] = useState('')
-  const textFromPrevious = route.params;
-  return(
-    <View >
+  useEffect(() => {
+    console.log('MyProfile is rendering')
+
+  })
+  const [myText, setText] = useState("");
+  return (
+    <View>
       <Text style={myStyles.text}>
-        { route.params.name ? route.params.name : "empty"}
+        num : {route.params.numOfScreen}
+      </Text>
+      <Text style={myStyles.text}>
+        {route.params?.name ? route.params.name : "empty"}
       </Text>
       <TextInput
         onChangeText={text => setText(text)}
         style={myStyles.text}
-        placeholder='text here'
+        placeholder="text here"
       />
       <Text
         style={myStyles.text}
       >
-        {myText.split(" ").reverse().join(' ')}
+        {myText.split(" ").reverse().join(" ")}
       </Text>
       <Button
-        title={'BOOM NAXUS'}
+        title={"BOOM NAXUS"}
         onPress={() => {
-          navigation.push("Profile", {name : myText})
+          navigation.push("Profile", {
+            name: myText,
+            numOfScreen: route.params.numOfScreen + 1
+          });
         }}
       />
       <Button
-        title={'domoi'}
+        title={"domoi"}
         onPress={() => {
-          navigation.popToTop()
+          navigation.popToTop();
         }}
-        color={'#449944'}
+        color={"#449944"}
       />
       <Button
-        title={'go back'}
+        title={"go back"}
         onPress={() => {
-          navigation.goBack()
+          navigation.goBack();
         }}
-        color={'#994444'}
+        color={"#994444"}
       />
 
     </View>
-  )
-}
+  );
+};
 
 const myStyles = StyleSheet.create({
-  text : {
-    fontSize : 25,
-    fontStyle : "italic",
-    textAlign : 'center',
-    borderWidth : 2,
-  }
-})
+  text: {
+    fontSize: 25,
+    fontStyle: "italic",
+    textAlign: "center",
+    borderWidth: 2,
+  },
+});
 
-export default MyProfile
+export default MyProfile;
