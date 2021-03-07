@@ -3,9 +3,9 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
-import { TextInput, Button, StyleSheet, Text, View } from "react-native";
 import MainScreen from "./src/components/MainScreen";
 import { ThemeProvider } from "./src/context/ThemeContext";
+import TextReverser from "./src/components/TextReverser";
 
 const Stack = createStackNavigator();
 
@@ -13,9 +13,15 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <ThemeProvider>
-      <MainScreen/>
-
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={'HomeScreen'} component={MainScreen}/>
+          <Stack.Screen name={"Profile"} component={TextReverser}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </ThemeProvider>
+
+
   )
 }
 
